@@ -1,4 +1,4 @@
-##here i have used mysql
+here I have used mysql
 
 -- Database: dd_task_db
 CREATE DATABASE dd_task_db;
