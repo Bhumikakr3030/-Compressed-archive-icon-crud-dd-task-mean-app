@@ -4,3 +4,15 @@ docker-compose up -d --build backend
 # Verify deployment
 curl http://localhost:3000/
 # Expected: {"message":"Welcome to DD Task application."}
+
+# Build only backend
+docker-compose build backend
+
+# Build and start backend with dependencies
+docker-compose up -d --build backend
+
+# Force rebuild backend
+docker-compose build --no-cache backend
+
+# Start backend only (already built)
+docker-compose up -d backend
