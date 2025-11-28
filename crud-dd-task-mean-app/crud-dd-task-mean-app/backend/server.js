@@ -1,7 +1,10 @@
 const express = require("express");
-//const cors = require("cors");
+const cors = require("cors"); // You had this commented out
 
 const app = express();
+
+// Enable CORS for frontend-backend communication
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -25,13 +28,14 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Test application." });
+  res.json({ message: "Welcome to DD Task application." });
 });
 
-require("./app/routes/turorial.routes")(app);
+// Fixed typo: "turorial.routes" should be "tutorial.routes"
+require("./app/routes/tutorial.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
