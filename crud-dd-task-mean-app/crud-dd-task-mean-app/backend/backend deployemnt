@@ -1,0 +1,6 @@
+# Complete backend deployment (build + start)
+docker-compose up -d --build backend
+
+# Verify deployment
+curl http://localhost:3000/
+# Expected: {"message":"Welcome to DD Task application."}
