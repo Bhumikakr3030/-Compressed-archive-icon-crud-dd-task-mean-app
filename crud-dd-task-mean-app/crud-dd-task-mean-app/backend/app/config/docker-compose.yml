@@ -17,7 +17,7 @@ services:
       - mean-network
 
   backend:
-    build: ./backend
+    image: $DOCKER_USERNAME/mean-backend:latest
     container_name: backend
     restart: unless-stopped
     ports:
@@ -31,7 +31,7 @@ services:
       - mean-network
 
   frontend:
-    build: ./frontend
+    image: $DOCKER_USERNAME/mean-frontend:latest
     container_name: frontend
     restart: unless-stopped
     ports:
