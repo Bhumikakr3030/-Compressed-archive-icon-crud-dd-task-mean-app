@@ -1,15 +1,13 @@
 const express = require("express");
-const cors = require("cors"); // You had this commented out
+const cors = require("cors");
 
 const app = express();
 
-// Enable CORS for frontend-backend communication
+// Enable CORS
 app.use(cors());
 
-// parse requests of content-type - application/json
+// Parse requests
 app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
@@ -26,15 +24,15 @@ db.mongoose
     process.exit();
   });
 
-// simple route
+// Simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to DD Task application." });
 });
 
-// Fixed typo: "turorial.routes" should be "tutorial.routes"
+// Tutorial routes
 require("./app/routes/tutorial.routes")(app);
 
-// set port, listen for requests
+// Set port and listen
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
