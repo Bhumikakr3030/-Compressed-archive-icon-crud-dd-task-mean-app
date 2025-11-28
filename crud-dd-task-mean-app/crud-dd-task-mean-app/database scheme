@@ -1,0 +1,9 @@
+{
+  _id: ObjectId("507f1f77bcf86cd799439011"),  // MongoDB auto-generated
+  title: "DD Task",
+  description: "Testing Purpose", 
+  published: false,
+  createdAt: ISODate("2024-01-15T10:30:00Z"),
+  updatedAt: ISODate("2024-01-15T10:30:00Z"),
+  __v: 0
+}
