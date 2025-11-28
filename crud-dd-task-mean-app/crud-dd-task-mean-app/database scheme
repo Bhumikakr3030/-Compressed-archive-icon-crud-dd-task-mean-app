@@ -1,9 +1,26 @@
-{
-  _id: ObjectId("507f1f77bcf86cd799439011"),  // MongoDB auto-generated
-  title: "DD Task",
-  description: "Testing Purpose", 
-  published: false,
-  createdAt: ISODate("2024-01-15T10:30:00Z"),
-  updatedAt: ISODate("2024-01-15T10:30:00Z"),
-  __v: 0
-}
+##here i have used mysql
+
+-- Database: dd_task_db
+CREATE DATABASE dd_task_db;
+USE dd_task_db;
+
+-- Tutorials table
+CREATE TABLE tutorials (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    published BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Indexes for better performance
+CREATE INDEX idx_tutorials_title ON tutorials(title);
+CREATE INDEX idx_tutorials_published ON tutorials(published);
+CREATE INDEX idx_tutorials_created_at ON tutorials(created_at);
+
+-- Insert sample data matching your UI
+INSERT INTO tutorials (title, description, published) VALUES
+('DD Task', 'Testing Purpose', FALSE),
+('Angular Basics', 'Learn Angular fundamentals', TRUE),
+('Database Design', 'Understanding database schemas', FALSE);
