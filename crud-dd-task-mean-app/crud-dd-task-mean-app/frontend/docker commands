@@ -1,0 +1,11 @@
+# Build and start all services
+docker-compose up -d
+
+# Build only frontend
+docker-compose build frontend
+
+# View logs
+docker-compose logs frontend
+
+# Stop services
+docker-compose down
