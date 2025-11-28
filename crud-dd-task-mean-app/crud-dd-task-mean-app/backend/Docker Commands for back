@@ -1,0 +1,96 @@
+# Build only the backend service
+docker-compose build backend
+
+# Force rebuild (if you have changes)
+docker-compose build --no-cache backend
+
+# Start only backend (and its dependencies: mongodb)
+docker-compose up backend
+
+# Start backend in detached mode
+docker-compose up -d backend
+
+# View backend logs
+docker-compose logs backend
+
+# View backend logs in real-time
+docker-compose logs -f backend
+
+# Check backend container status
+docker-compose ps backend
+
+# Execute command inside backend container
+docker-compose exec backend sh
+
+# Check backend container resources
+docker-compose top backend
+
+# View backend logs
+docker-compose logs backend
+
+# View backend logs in real-time
+docker-compose logs -f backend
+
+# Check backend container status
+docker-compose ps backend
+
+# Execute command inside backend container
+docker-compose exec backend sh
+
+# Check backend container resources
+docker-compose top backend
+
+# Restart only backend service
+docker-compose restart backend
+
+# Stop only backend service
+docker-compose stop backend
+
+# Remove backend container (but keep volumes)
+docker-compose rm backend
+
+# View backend environment variables
+docker-compose exec backend env
+
+# Check backend connectivity to MongoDB
+docker-compose exec backend ping mongodb
+
+# Rebuild and restart backend
+docker-compose up -d --build backend
+
+# Scale backend instances (if needed)
+docker-compose up -d --scale backend=2
+
+# Run backend in interactive mode
+docker-compose run backend sh
+
+# Test backend API from host machine
+curl http://localhost:3000/
+
+# Test backend API from within network
+docker-compose exec backend curl http://backend:3000/
+
+# Test MongoDB connection from backend
+docker-compose exec backend node -e "
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://admin:password@mongodb:27017/meanapp?authSource=admin')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection failed:', err))"
+
+# Remove backend container and network
+docker-compose down backend
+
+# Remove backend images
+docker rmi $(docker images | grep "backend" | awk '{print $3}')
+
+# Clean up unused containers/networks
+docker system prune -f
+
+# Check if backend is running
+curl -f http://localhost:3000/ || echo "Backend is down"
+
+# Check backend health from inside container
+docker-compose exec backend wget -qO- http://localhost:3000/
+
+# Check backend process status
+docker-compose exec backend ps aux | grep node
