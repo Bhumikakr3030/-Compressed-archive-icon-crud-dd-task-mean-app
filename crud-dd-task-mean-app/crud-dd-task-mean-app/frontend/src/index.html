@@ -8,6 +8,76 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+ <div class="app-container">
+  <!-- Header Section matching DD-curd-app-ui-2.PNG -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">DD Task</h1>
+      <div class="header-actions">
+        <span class="tutorials-text">Tutorials</span>
+        <button class="add-btn">Add</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Left Side - Add Tutorial Form -->
+    <div class="form-section">
+      <h2 class="section-title">Add New Tutorial</h2>
+      <form class="tutorial-form">
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-input" placeholder="Enter title">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" rows="4" placeholder="Enter description"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <!-- Right Side - Tutorials List matching DD-curd-app-ui-1.PNG -->
+    <div class="list-section">
+      <div class="section-header">
+        <h2 class="section-title">Tutorials List</h2>
+      </div>
+      
+      <div class="tutorials-container">
+        <div class="tutorials-header">
+          <h3 class="tutorials-title">Tutorials</h3>
+          <button class="remove-all-btn">Remove All</button>
+        </div>
+        
+        <div class="tutorial-item">
+          <span class="tutorial-name">DD Task</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tutorial Details Section matching DD-curd-app-ui-1.PNG -->
+    <div class="details-section">
+      <div class="section-header">
+        <h2 class="section-title">Tutorial</h2>
+      </div>
+      
+      <div class="tutorial-details">
+        <div class="detail-item">
+          <strong>Title:</strong> DD Task
+        </div>
+        <div class="detail-item">
+          <strong>Description:</strong> Testing Purpose
+        </div>
+        <div class="detail-item">
+          <strong>Status:</strong> <span class="status-badge">Pending</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
   <app-root></app-root>
 </body>
 </html>
