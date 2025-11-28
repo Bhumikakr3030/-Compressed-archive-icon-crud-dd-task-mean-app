@@ -1,0 +1,18 @@
+mean-crud-app/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── backend/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── server.js
+│   └── ... (other backend files)
+├── frontend/
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── angular.json
+│   └── ... (other frontend files)
+├── docker-compose.yml
+├── setup-vm.sh
+└── README.md
