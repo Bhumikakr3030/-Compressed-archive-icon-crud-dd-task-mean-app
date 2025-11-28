@@ -16,3 +16,14 @@ docker-compose build --no-cache backend
 
 # Start backend only (already built)
 docker-compose up -d backend
+
+# Test root endpoint
+curl http://localhost:3000/
+
+# Test tutorials API
+curl http://localhost:3000/api/tutorials/
+
+# Test MongoDB connection
+docker-compose exec backend node -e "
+require('./app/models/index.js');
+console.log('Backend models loaded successfully');"
