@@ -10,13 +10,13 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # ✅ Updated to v4
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3  # ✅ Updated to v3
 
     - name: Login to Docker Hub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3  # ✅ Updated to v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
@@ -28,6 +28,8 @@ jobs:
         file: ./backend/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/mean-backend:latest
+        cache-from: type=gha  # ✅ Added caching for faster builds
+        cache-to: type=gha,mode=max
 
     - name: Build and push Frontend
       uses: docker/build-push-action@v4
@@ -36,21 +38,70 @@ jobs:
         file: ./frontend/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/mean-frontend:latest
+        cache-from: type=gha  # ✅ Added caching for faster builds
+        cache-to: type=gha,mode=max
 
   deploy:
     needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-linux-latest  # ✅ Fixed: was "ubuntu-latest"
     
     steps:
+    - name: Checkout code (for docker-compose.yml)
+      uses: actions/checkout@v4  # ✅ Added to get docker-compose.yml
+
     - name: Deploy to VM
-      uses: appleboy/ssh-action@v0.1.6
+      uses: appleboy/ssh-action@v1.0.3  # ✅ Updated version
       with:
         host: ${{ secrets.VM_HOST }}
         username: ${{ secrets.VM_USERNAME }}
         key: ${{ secrets.VM_SSH_KEY }}
         script: |
+          set -e  # ✅ Exit on error
+          echo "🚀 Starting deployment..."
+          
           cd ~/mean-crud-app
+          
+          # Copy updated docker-compose.yml if it exists
+          if [ -f docker-compose.yml ]; then
+            echo "📋 Updating docker-compose.yml..."
+            cp docker-compose.yml ~/mean-crud-app/docker-compose.yml
+          fi
+          
+          echo "🛑 Stopping existing containers..."
           docker-compose down
+          
+          echo "🧹 Cleaning up unused images..."
           docker image prune -f
+          
+          echo "📥 Pulling latest images..."
           docker-compose pull
+          
+          echo "🚀 Starting containers..."
           docker-compose up -d
+          
+          echo "⏳ Waiting for services to start..."
+          sleep 30
+          
+          # ✅ Added health checks
+          echo "🏥 Running health checks..."
+          
+          # Check backend
+          if curl -f http://localhost:3000/; then
+            echo "✅ Backend is healthy"
+          else
+            echo "❌ Backend health check failed"
+            exit 1
+          fi
+          
+          # Check frontend
+          if curl -f http://localhost/; then
+            echo "✅ Frontend is healthy"
+          else
+            echo "❌ Frontend health check failed"
+            exit 1
+          fi
+          
+          echo "📊 Current running containers:"
+          docker-compose ps
+          
+          echo "🎉 Deployment completed successfully!"
