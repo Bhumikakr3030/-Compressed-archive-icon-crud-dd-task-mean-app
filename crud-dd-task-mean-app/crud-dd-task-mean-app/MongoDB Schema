@@ -1,0 +1,63 @@
+// Database: dd_task_db
+// Collection: tutorials
+
+db.createCollection("tutorials", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["title"],
+      properties: {
+        title: {
+          bsonType: "string",
+          description: "Title is required and must be a string"
+        },
+        description: {
+          bsonType: "string",
+          description: "Description must be a string"
+        },
+        published: {
+          bsonType: "bool",
+          description: "Published status must be a boolean"
+        },
+        created_at: {
+          bsonType: "date",
+          description: "Creation date must be a date"
+        },
+        updated_at: {
+          bsonType: "date",
+          description: "Update date must be a date"
+        }
+      }
+    }
+  }
+});
+
+// Create indexes
+db.tutorials.createIndex({ "title": 1 });
+db.tutorials.createIndex({ "published": 1 });
+db.tutorials.createIndex({ "created_at": -1 });
+
+// Insert sample data matching your UI
+db.tutorials.insertMany([
+  {
+    title: "DD Task",
+    description: "Testing Purpose",
+    published: false,
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  {
+    title: "Angular Basics",
+    description: "Learn Angular fundamentals",
+    published: true,
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  {
+    title: "Database Design",
+    description: "Understanding database schemas",
+    published: false,
+    created_at: new Date(),
+    updated_at: new Date()
+  }
+]);
