@@ -1,0 +1,7 @@
+# Run the setup script
+chmod +x setup-vm.sh
+./setup-vm.sh
+
+# After reboot, deploy the application
+cd ~/mean-crud-app
+docker-compose up -d
