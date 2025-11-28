@@ -1,6 +1,8 @@
 <div>
   <div class="submit-form">
     <div *ngIf="!submitted">
+      <h2>Add Tutorial</h2>
+      
       <div class="form-group">
         <label for="title">Title</label>
         <input
@@ -10,24 +12,34 @@
           required
           [(ngModel)]="tutorial.title"
           name="title"
+          placeholder="Enter title"
         />
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <input
+        <textarea
           class="form-control"
           id="description"
           required
           [(ngModel)]="tutorial.description"
           name="description"
-        />
+          placeholder="Enter description"
+          rows="4"
+        ></textarea>
       </div>
 
-      <button (click)="saveTutorial()" class="btn btn-success">Submit</button>
+      <button 
+        type="submit" 
+        class="btn btn-success" 
+        (click)="saveTutorial()"
+        [disabled]="!tutorial.title || !tutorial.description"
+      >
+        Submit
+      </button>
     </div>
 
-    <div *ngIf="submitted">
+    <div *ngIf="submitted" class="success-message">
       <h4>Tutorial was submitted successfully!</h4>
       <button class="btn btn-success" (click)="newTutorial()">Add</button>
     </div>
